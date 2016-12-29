@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="member">
+
+	<typeAlias alias="mdto" type="com.jlab.education.dto.MemberDto" />
+
+	<update id="create" parameterClass="mdto">
+		insert into member(member_id,member_pw,member_name,regdate)
+		values( #member_id#,#member_pw#,#member_name#,sysdate)
+	</update>
+	<select id="login_check" parameterClass="mdto" resultClass="String">
+		select member_name from member
+		where member_id = #member_id# and member_pw = #member_pw#
+	</select>
+
+	<select id="id_check" parameterClass="String" resultClass="String">
+		select member_name from member
+		where member_id = #member_id#
+	</select>
+	<select id="member_info" parameterClass="String" resultClass="mdto">
+		select * from member
+		where member_id = #member_id#
+	</select>
+	<update id="member_update" parameterClass="Map">
+		update member set member_name = #member_name# , member_pw = #member_pw#
+		where member_id = #member_id#
+	</update>
+	<select id="get_name" parameterClass="String" resultClass="String">
+		select member_name from member
+		where member_id = #member_id#
+	</select>
+	<delete id="delete" parameterClass="String">
+		delete from member where member_id = #member_id#
+	</delete>
+
+</sqlMap>
