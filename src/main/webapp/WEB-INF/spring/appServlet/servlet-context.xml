@@ -24,7 +24,8 @@
 	<beans:bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
 		<beans:property name="definitions">
 		<beans:list>
-		<beans:value>/WEB-INF/tiles/tiles.xml</beans:value>
+			<beans:value>/WEB-INF/tiles/account_tiles.xml</beans:value>
+			<beans:value>/WEB-INF/tiles/board_tiles.xml</beans:value>
 		</beans:list>
 		</beans:property>
 	</beans:bean>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="board">
+	<typeAlias alias="adto" type="com.jlab.education.dto.ArticleDto" />
+	<typeAlias alias="rdto" type="com.jlab.education.dto.ReplyDto" />
+	
+	<!-- 게시물 조회 -->
+	<select id="list" resultClass="adto">
+		select num, title, name, regdate from hmboard
+		order by num desc
+	</select>
+	
+	<!-- 글쓰기 -->
+	<insert id="write" parameterClass="adto">
+		insert into hmboard(num, title, name, content, regdate)
+		values(hmboard_seq.nextval, #title#, #name#, #content#, sysdate)
+	</insert>
+	
+	<!-- 게시물 상세조회 -->
+	<select id="rview" resultClass="adto" parameterClass="int">
+		select num, title, name, content , regdate from hmboard
+		where num = #num#
+	</select>
+	
+	<!-- 글 수정 -->
+	<update id="update" parameterClass="adto">
+		update hmboard set title = #title#, content = #content#, regdate = sysdate
+		where num = #num#
+	</update>
+	
+	<!-- 글 삭제 -->
+	<delete id="delete" parameterClass="int">
+		delete from hmboard
+		where num = #num#
+	</delete>
+	
+	<!-- 댓글조회 -->
+	<select id="review_board" resultClass="rdto" parameterClass="int">
+		select gasinumber, num, content, name, regdate from getterBoard
+		where gasiNumber = #anum#
+		order by num desc
+	</select>
+	
+	<!-- 댓글쓰기 -->
+	<insert id="review_write" parameterClass="rdto">
+		insert into getterBoard(num, gasinumber, name, content, regdate)
+		values(GETTERBOARD_SEQ.nextval, #gasinumber#, #name#, #content#, sysdate)
+	</insert>
+	
+</sqlMap>

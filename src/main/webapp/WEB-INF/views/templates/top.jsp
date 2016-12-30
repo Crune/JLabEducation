@@ -10,7 +10,7 @@
 <table align="center" border="0" width="700">
 	<tr>
 		<td align="center"><a href="./">홈</a>&nbsp;&nbsp;&nbsp;</td>
-
+		<td align="center"><a href="./gesipan.jlab">게시판</a>&nbsp;&nbsp;&nbsp;</td>
 	</tr>
 </table>
 </body>

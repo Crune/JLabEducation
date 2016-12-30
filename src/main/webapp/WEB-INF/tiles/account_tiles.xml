@@ -7,6 +7,8 @@
     <definition name=".main" template="/WEB-INF/views/templates/mainpage.jsp">
         <put-attribute name="top" value="/WEB-INF/views/templates/top.jsp" />
         <put-attribute name="bottom" value="/WEB-INF/views/templates/bottom.jsp" />
+        <put-attribute name="login_true" value="/WEB-INF/views/login/login_sucess.jsp" />
+        <put-attribute name="login_false" value="/WEB-INF/views/login/login.jsp" />
     </definition>
     <definition name=".main_session" template="/WEB-INF/views/templates/mainpage_session.jsp">
         <put-attribute name="top" value="/WEB-INF/views/templates/top.jsp" />
@@ -16,33 +18,27 @@
 
     <definition name="main_login_page" extends=".main"> 
         <put-attribute name="title" value="시작페이지 입니다." />
-        <put-attribute name="left" value="/WEB-INF/views/login/login.jsp" />
         <put-attribute name="body" value="/WEB-INF/views/index/index.jsp" />
     </definition>
     <definition name="main_session_page" extends=".main">
         <put-attribute name="title" value="시작페이지 입니다." />
-        <put-attribute name="left" value="/WEB-INF/views/login/login_sucess.jsp" />
         <put-attribute name="body" value="/WEB-INF/views/index/index.jsp" />
     </definition>
     <definition name="login_erorr" extends=".main">
         <put-attribute name="title" value="시작페이지 입니다." />
-        <put-attribute name="left" value="/WEB-INF/views/login/login.jsp" />
         <put-attribute name="body" value="/WEB-INF/views/login/login_erorr.jsp" />
     </definition>
     <definition name="join" extends=".main">
         <put-attribute name="title" value="시작페이지 입니다." />
-        <put-attribute name="left" value="/WEB-INF/views/login/login.jsp" />
         <put-attribute name="body" value="/WEB-INF/views/join/join.jsp" />
     </definition>
     <definition name="join_faile" extends=".main">
         <put-attribute name="title" value="시작페이지 입니다." />
-        <put-attribute name="left" value="/WEB-INF/views/login/login.jsp" />
         <put-attribute name="body" value="/WEB-INF/views/join/join_faile.jsp" />
     </definition>
 
     <definition name="member_info" extends=".main">
         <put-attribute name="title" value="시작페이지 입니다." />
-        <put-attribute name="left" value="/WEB-INF/views/login/login_sucess.jsp" />
         <put-attribute name="body" value="/WEB-INF/views/info/info.jsp" />
     </definition>
     

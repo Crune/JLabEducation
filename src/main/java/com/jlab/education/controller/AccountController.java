@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jlab.education.dto.MemberDto;
-import com.jlab.education.service.JlabService;
+import com.jlab.education.service.AccountService;
 
 /**
  * Handles requests for the application home page.
@@ -31,7 +31,7 @@ import com.jlab.education.service.JlabService;
 public class AccountController {
 	
 	@Autowired		//스프링 어노테이션의 DI방식 -- 관계를 맺어주어 SERVICE 를 빈객체로 등록 : jlabService 를 연결시킨다
-	private	JlabService SERVICE;  //DAO를 포함하여 서비스하기에 SERVICE라고 칭함  :
+	private	AccountService SERVICE;  //DAO를 포함하여 서비스하기에 SERVICE라고 칭함  :
 	
 	private static final Logger logger = LoggerFactory.getLogger(AccountController.class);
 	
@@ -82,7 +82,7 @@ public class AccountController {
 
 		if(name != null){		//아이디에 해당하는 값이 있을경우
 			sesion.setAttribute("sesion_id", dto.getMember_id());		//아이디를 세션에 저장
-
+			sesion.setAttribute("name", name);
 			mv.addObject("name",name);		//리턴할 데이터에 이름을 추가
 			mv.setViewName("main_session_page");
 		}else{

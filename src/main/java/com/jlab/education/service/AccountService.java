@@ -10,7 +10,7 @@ import com.jlab.education.dao.AccountDao;
 import com.jlab.education.dto.MemberDto;
 
 @Service // 스프링 어노테이션방식 -- SERVICE를 의미 : JNB_SERVICE 를 빈객체로 등록
-public class JlabService {
+public class AccountService {
 
 	@Autowired // DAO와 의존관계를 맺음 : JNB_DAO 를 연결시킴
 	private AccountDao DAO;

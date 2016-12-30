@@ -21,7 +21,7 @@ function member_info(){
 	<table width="250" align="center" border="0">
 	
 		<tr>
-				<td colspan="2" align="center">${name} ¥‘ æ»≥Á«œººø‰!!</td>
+				<td colspan="2" align="center">${sessionScope.name} ¥‘ æ»≥Á«œººø‰!!</td>
 			</tr>
 			
 			<tr>

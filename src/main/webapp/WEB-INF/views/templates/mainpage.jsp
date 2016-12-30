@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=euc-kr" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 
 <html>
@@ -15,7 +16,12 @@
 	
 	<tr>
 		<td>
-			<tiles:insertAttribute name="left" />
+			<c:if test="${not empty sessionScope.sesion_id}">
+				<tiles:insertAttribute name="login_true" />
+			</c:if>
+			<c:if test="${empty sessionScope.sesion_id}">
+				<tiles:insertAttribute name="login_false" />
+			</c:if>
 		</td>	
 	
 		<td width="500" height="300">
