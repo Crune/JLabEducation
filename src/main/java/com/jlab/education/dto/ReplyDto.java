@@ -60,4 +60,10 @@ public class ReplyDto {
 	public void setRegdate(String regdate) {
 		this.regdate = regdate;
 	}
+
+	@Override
+	public String toString() {
+		return "ReplyDto [gasinumber=" + gasinumber + ", num=" + num + ", name=" + name + ", content=" + content
+				+ ", id=" + id + ", regdate=" + regdate + "]";
+	}
 }

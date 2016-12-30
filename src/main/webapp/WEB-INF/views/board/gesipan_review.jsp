@@ -7,42 +7,42 @@
 <title>Insert title here</title>
 </head>
 <body>
-				<form action="./gesipan_update.jlab" method="post" name="gasi">
-					<table width="100%">
+	<form action="./gesipan_update.jlab" method="post" name="gasi">
+		<table width="100%">
+			<tr>
+				<td>
+					<table border="1" width="100%" align="center">
 						<tr>
-							<td>
-								<table border="1" width="100%" align="center">
-									<tr>
-										<td>번호 : <input type="text" name="num" id="num" value="${member.num}" readonly="readonly" /></td>
-									</tr>
-									<tr>
-										<td>제목 : <input type="text" name="title" value="${member.title}">
-										</td>
-									</tr>
-									<tr>
-										<td>이름 : <input type="text" name="name" value="${member.name}" readonly="readonly">
-										</td>
-									</tr>
-									<tr align="center">
-										<td width="100%"><textarea name="content" cols="70" rows="20">${member.content}</textarea></td>
-									</tr>
-								</table>
+							<td>번호 : <input type="text" name="num" id="num" value="${member.num}" readonly="readonly" /></td>
+						</tr>
+						<tr>
+							<td>제목 : <input type="text" name="title" value="${member.title}">
 							</td>
 						</tr>
 						<tr>
-							<td>
-								<table border="1" align="right">
-									<tr>
-										<td><input type="button" value="답글" onclick="location.href='./gesipan.jlab'" /></td>
-										<td><input type="submit" value="수정"></td>
-										<td><input type="button" value="삭제" onclick="location.href='./gesipan_delete.jlab?num=${member.num}'" /></td>
-										<td><input type="button" value="목록" onclick="location.href='./gesipan.jlab'" /></td>
-									</tr>
-								</table>
+							<td>이름 : <input type="text" name="name" value="${member.name}" readonly="readonly">
 							</td>
+						</tr>
+						<tr align="center">
+							<td width="100%"><textarea name="content" cols="70" rows="20">${member.content}</textarea></td>
 						</tr>
 					</table>
-				</form>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<table border="1" align="right">
+						<tr>
+							<td><input type="button" value="답글" onclick="location.href='./gesipan.jlab'" /></td>
+							<td><input type="submit" value="수정"></td>
+							<td><input type="button" value="삭제" onclick="location.href='./gesipan_delete.jlab?num=${member.num}'" /></td>
+							<td><input type="button" value="목록" onclick="location.href='./gesipan.jlab'" /></td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</form>
 	<form action="./gesipan_reple.jlab" method="post">
 		<table>
 			<tr>
@@ -50,11 +50,9 @@
 					<!-- 댓글 작성 table -->
 					<table>
 						<Tr>
-							<td>이름 
-								<c:if test="${empty sessionScope.sesion_id}">
+							<td>이름 <c:if test="${empty sessionScope.sesion_id}">
 									<input type="text" name="name">
-								</c:if>
-								<c:if test="${not empty sessionScope.sesion_id}">
+								</c:if> <c:if test="${not empty sessionScope.sesion_id}">
 									${sessionScope.name}
 									<input type="hidden" name="name" value="${sessionScope.name}">
 								</c:if>
@@ -80,6 +78,9 @@
 									<td>${list.content}</td>
 									<td>작성일</td>
 									<td>${list.regdate}</td>
+									<c:if test="${not empty list.id && sessionScope.sesion_id == list.id}">
+										<td><input type="button" onclick="gasi_delete(${member.num}, ${list.num})" value="삭제"></td>
+									</c:if>
 								</tr>
 							</c:forEach>
 						</table>

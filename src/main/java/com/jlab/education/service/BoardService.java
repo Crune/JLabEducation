@@ -63,6 +63,15 @@ public class BoardService {
 		}
 	}
 
+	public ReplyDto pick_review(int num) {
+		ReplyDto rst = null;// List를 초기화
+		try {
+			rst = DAO.pick_review(num);// 해당 고유번호게시물의 댓글들을 조회.
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return rst;
+	}
 	// 댓글조회
 	public List gesi_rview_board(int num) {
 		List list = null;// List를 초기화
@@ -73,12 +82,20 @@ public class BoardService {
 		}
 		return list;
 	}
-	
 
 	// 댓글쓰기
 	public void gesi_rview_insert(ReplyDto dto) {
 		try {
 			DAO.gesi_rview_insert(dto);// 넘어온 DTO정보를 이용하여 DB에 값을 insert
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
+
+	// 댓글삭제
+	public void gesi_rview_delete(int num) {
+		try {
+			DAO.gesi_rview_delete(num);// num이라는 고유번호를 이용하여 게시물을 삭제.
 		} catch (Exception e) {
 			System.out.println(e);
 		}

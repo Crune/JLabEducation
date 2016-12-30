@@ -1,14 +1,16 @@
-<%@ page contentType="text/html; charset=euc-kr" %>
+<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 
 <html>
 <head>
 	<title><tiles:getAsString name="title" /></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=euc-kr" />
+	<script language='javascript' src="/js/default.js"  charset="utf-8" ></script>
 </head>
 <body>
 <center>
-<table border="1" height="500">
+<table border="1" height="500">zzz
 
 	<tr>
 		<td colspan="2"><tiles:insertAttribute name="top" /></td>	

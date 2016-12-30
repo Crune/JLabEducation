@@ -63,4 +63,12 @@ public class ArticleDto {
 	public void setRegdate(String regdate) {
 		this.regdate = regdate;
 	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 }

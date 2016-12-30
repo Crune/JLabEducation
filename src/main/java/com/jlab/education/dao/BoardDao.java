@@ -47,9 +47,19 @@ public class BoardDao extends SqlMapClientDaoSupport {
 		return getSqlMapClientTemplate().queryForList("board.review_board", num);
 	}
 
+	// ¥Ò±€ªÛºº∫∏±‚
+	public ReplyDto pick_review(int num) {
+		return (ReplyDto) getSqlMapClientTemplate().queryForObject("board.pick_review", num);
+	}
+
 	// ¥Ò±€æ≤±‚
 	public void gesi_rview_insert(ReplyDto dto) {
 		getSqlMapClientTemplate().insert("board.review_write", dto);
+	}
+	
+	// ¥Ò±€ªË¡¶
+	public void gesi_rview_delete(int num) {
+		getSqlMapClientTemplate().delete("board.review_delete", num);
 	}
 
 }

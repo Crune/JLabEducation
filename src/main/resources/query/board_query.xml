@@ -13,13 +13,13 @@
 	
 	<!-- 글쓰기 -->
 	<insert id="write" parameterClass="adto">
-		insert into hmboard(num, title, name, content, regdate)
-		values(hmboard_seq.nextval, #title#, #name#, #content#, sysdate)
+		insert into hmboard(num, title, name, content, id, regdate)
+		values(hmboard_seq.nextval, #title#, #name#, #content#, #id:VARCHAR:NO_ENTRY#, sysdate)
 	</insert>
 	
 	<!-- 게시물 상세조회 -->
 	<select id="rview" resultClass="adto" parameterClass="int">
-		select num, title, name, content , regdate from hmboard
+		select num, title, name, content , regdate, id from hmboard
 		where num = #num#
 	</select>
 	
@@ -37,15 +37,26 @@
 	
 	<!-- 댓글조회 -->
 	<select id="review_board" resultClass="rdto" parameterClass="int">
-		select gasinumber, num, content, name, regdate from getterBoard
+		select gasinumber, num, content, name, regdate, id from getterBoard
 		where gasiNumber = #anum#
 		order by num desc
 	</select>
 	
+	<!-- 댓글조회 -->
+	<select id="pick_review" resultClass="rdto" parameterClass="int">
+		select gasinumber, num, content, name, regdate, id from getterBoard
+		where num = #num#
+	</select>
+	
 	<!-- 댓글쓰기 -->
 	<insert id="review_write" parameterClass="rdto">
-		insert into getterBoard(num, gasinumber, name, content, regdate)
-		values(GETTERBOARD_SEQ.nextval, #gasinumber#, #name#, #content#, sysdate)
+		insert into getterBoard(num, gasinumber, name, content, id, regdate)
+		values(GETTERBOARD_SEQ.nextval, #gasinumber#, #name#, #content#, #id:VARCHAR:NO_ENTRY#, sysdate)
 	</insert>
 	
+	<!-- 댓글삭제 -->
+	<delete id="review_delete" parameterClass="int">
+		delete from getterBoard
+		where num = #num#
+	</delete>
 </sqlMap>

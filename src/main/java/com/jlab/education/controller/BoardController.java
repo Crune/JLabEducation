@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,13 +34,24 @@ public class BoardController {
 
 	// 게시판 글쓰기
 	@RequestMapping(value = "/gesipan_save.jlab", method = RequestMethod.POST)
-	public ModelAndView gesipan_save(HttpServletRequest request, ArticleDto dto) {
-		ModelAndView mav = new ModelAndView();
-		GE_SERVICE.gesipan_insert(dto);// 게시판 글쓰기를 통하여 넘어온 값들을 DB에 저장.
-		List<?> glist = GE_SERVICE.gesi_list();//저장하고 난뒤의 새로운 게시물을 조회.
-		mav.addObject("glist", glist);
-		mav.setViewName("mainpage");
-		return mav;
+	public ModelAndView gesipan_save(HttpSession session, ArticleDto dto) {
+		boolean isName = dto.getName() != null && !dto.getName().isEmpty();
+		boolean isTitle = dto.getTitle() != null && !dto.getTitle().isEmpty();
+		boolean isCont = dto.getContent() != null && !dto.getContent().isEmpty();
+		if (isName && isTitle && isCont) {
+			
+			String uid = (String) session.getAttribute("sesion_id");
+			boolean isLogined = uid != null && !uid.isEmpty();
+			if (isLogined) {
+				dto.setId(uid);
+				String name = (String) session.getAttribute("name");
+				dto.setName(name);
+			}
+			
+			GE_SERVICE.gesipan_insert(dto);// 게시판 글쓰기를 통하여 넘어온 값들을 DB에 저장.
+		}
+		
+		return goArticle(0);
 	}
 
 	// 글쓰기 버튼 이벤트
@@ -71,29 +83,93 @@ public class BoardController {
 		rttr.put("num", num);
 		return new ModelAndView( "redirect:/gesipan_rview.jlab", rttr);
 	}
-
-	// 답글
-	@RequestMapping(value = "/gesipan_reple.jlab", method = RequestMethod.POST)
-	public ModelAndView gesipan_reple(HttpServletRequest request, ReplyDto dto) {
-		GE_SERVICE.gesi_rview_insert(dto);// 게시판 글쓰기를 통하여 넘어온 값들을 DB에 저장.
-		return goArticle(dto.getGasinumber());
-	}
 	
+	private boolean isAAuth(int a_num, HttpSession session) {
+		String uid = (String) session.getAttribute("sesion_id");
+		boolean isLogined = uid != null && !uid.isEmpty();
+		if (isLogined) {
+			ArticleDto atc = GE_SERVICE.gesi_rview(a_num);
+			boolean isAuth = uid.equals(atc.getId());
+			if (isAuth) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	// 수정
 	@RequestMapping(value = "/gesipan_update.jlab", method = RequestMethod.POST)
-	public ModelAndView gesipan_update(HttpServletRequest request, ArticleDto member) { // DTO에 정보를 가져옴
-		String nums = request.getParameter("num");// 게시물 고유 번호를 가져옴.
-		int num = Integer.parseInt(nums);// String타입을 -> int타입으로 변형.
-		GE_SERVICE.gesi_update(member);// DTO오 정보를 이용하여, DB에 수정을 한후		
+	public ModelAndView gesipan_update(HttpSession session, ArticleDto dto,
+			@RequestParam(value="num", defaultValue = "0") int num) { // DTO에 정보를 가져옴
+		
+		if (isAAuth(num, session)) {
+			GE_SERVICE.gesi_update(dto);// DTO오 정보를 이용하여, DB에 수정을 한후
+		}
+		
 		return goArticle(num);
 	}
 
 	// 삭제
 	@RequestMapping(value = "/gesipan_delete.jlab", method = RequestMethod.GET)
-	public ModelAndView gesipan_delete(HttpServletRequest request) {
-		String nums = request.getParameter("num");// 게시물 고유 번호를 가져옴.
-		int num = Integer.parseInt(nums);// String타입을 -> int타입으로 변형.
-		GE_SERVICE.gesi_delete(num);// 게시물 고유번호를 가지고 DB에 접근하여 게시물 삭제
+	public ModelAndView gesipan_delete(HttpSession session,
+			@RequestParam(value="num", defaultValue = "0") int num) {
+		
+		if (isAAuth(num, session)) {
+			GE_SERVICE.gesi_delete(num);// 게시물 고유번호를 가지고 DB에 접근하여 게시물 삭제
+		}
+		
 		return goArticle(0);
+	}
+
+	private ReplyDto injectAccount(ReplyDto dto, HttpSession session) {
+		boolean isName = dto.getName() != null && !dto.getName().isEmpty();
+		boolean isCont = dto.getContent() != null && !dto.getContent().isEmpty();
+		if (isName && isCont) {
+			
+			String uid = (String) session.getAttribute("sesion_id");
+			boolean isLogined = uid != null && !uid.isEmpty();
+			if (isLogined) {
+				dto.setId(uid);
+				String name = (String) session.getAttribute("name");
+				dto.setName(name);
+			}
+			return dto;
+		}
+		return null;
+	}
+
+	private boolean isRAuth(int r_num, HttpSession session) {
+		String uid = (String) session.getAttribute("sesion_id");
+		boolean isLogined = uid != null && !uid.isEmpty();
+		if (isLogined) {
+			ReplyDto reply = GE_SERVICE.pick_review(r_num);
+			boolean isAuth = uid.equals(reply.getId());
+			if (isAuth) {
+				return true;
+			}
+		}
+		return false;
+	}
+	// 답글
+	@RequestMapping(value = "/gesipan_reple.jlab", method = RequestMethod.POST)
+	public ModelAndView gesipan_reple(HttpSession session, ReplyDto dto) {
+		dto = injectAccount(dto, session);
+		if (dto != null) {
+			GE_SERVICE.gesi_rview_insert(dto);// 게시판 글쓰기를 통하여 넘어온 값들을 DB에 저장.
+		}
+		return goArticle(dto.getGasinumber());
+	}
+
+	// 답글 삭제
+	@RequestMapping(value = "/gesipan_reple_delete.jlab", method = RequestMethod.GET)
+	public ModelAndView gesipan_reple_delete(HttpSession session,
+			@RequestParam(value="anum", defaultValue = "0") int anum,
+			@RequestParam(value="rnum", defaultValue = "0") int rnum) {
+		if (anum > 0 && rnum > 0 && isRAuth(rnum, session)) {
+			GE_SERVICE.gesi_rview_delete(rnum);// 게시물 고유번호를 가지고 DB에 접근하여 게시물 삭제
+			return goArticle(anum);
+		} else {
+			return goArticle(0);
+		}
 	}
 }
