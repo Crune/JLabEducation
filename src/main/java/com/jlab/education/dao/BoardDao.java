@@ -11,9 +11,9 @@ import com.jlab.education.dto.ArticleDto;
 import com.jlab.education.dto.ReplyDto;
 
 @Repository //스프링 어노테이션방식 -- DAO 를 의미 : gasipan_DAO 를 빈객체로 등록
-public class BoardDAO extends SqlMapClientDaoSupport {
+public class BoardDao extends SqlMapClientDaoSupport {
 	@Autowired //IBATIS를 로딩함
-	public BoardDAO(SqlMapClient sqlMapClient) {
+	public BoardDao(SqlMapClient sqlMapClient) {
 		setSqlMapClient(sqlMapClient);
 	}
 

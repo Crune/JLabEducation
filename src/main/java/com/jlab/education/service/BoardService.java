@@ -5,14 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.jlab.education.dao.BoardDAO;
+import com.jlab.education.dao.BoardDao;
 import com.jlab.education.dto.ArticleDto;
 import com.jlab.education.dto.ReplyDto;
 
 @Service //스프링 어노테이션방식 -- Service 를 의미 : gesipan_SERVICE 를 빈객체로 등록
 public class BoardService {
 	@Autowired //스프링 어노테이션의 DI방식 -- 관계를 맺어주어 DAO 를 빈객체로 등록 : gesipan_DAO 를 연결시킨다
-	private BoardDAO DAO;
+	private BoardDao DAO;
 
 	// 게시판 글쓰기
 	public void gesipan_insert(ArticleDto dto) {
