@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import com.jlab.education.dto.ArticleDto;
 import com.jlab.education.dto.ReplyDto;
 import com.jlab.education.service.BoardService;
@@ -86,9 +84,7 @@ public class BoardController {
 	public ModelAndView gesipan_update(HttpServletRequest request, ArticleDto member) { // DTO에 정보를 가져옴
 		String nums = request.getParameter("num");// 게시물 고유 번호를 가져옴.
 		int num = Integer.parseInt(nums);// String타입을 -> int타입으로 변형.
-		ModelAndView mav = new ModelAndView();
-		GE_SERVICE.gesi_update(member);// DTO오 정보를 이용하여, DB에 수정을 한후
-		
+		GE_SERVICE.gesi_update(member);// DTO오 정보를 이용하여, DB에 수정을 한후		
 		return goArticle(num);
 	}
 
@@ -97,9 +93,7 @@ public class BoardController {
 	public ModelAndView gesipan_delete(HttpServletRequest request) {
 		String nums = request.getParameter("num");// 게시물 고유 번호를 가져옴.
 		int num = Integer.parseInt(nums);// String타입을 -> int타입으로 변형.
-		ModelAndView mav = new ModelAndView();
 		GE_SERVICE.gesi_delete(num);// 게시물 고유번호를 가지고 DB에 접근하여 게시물 삭제
-
 		return goArticle(0);
 	}
 }

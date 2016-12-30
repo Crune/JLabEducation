@@ -17,7 +17,14 @@
 	<form action="./gesipan_save.jlab" method="post">
 		<table border="1" align="center" width="100%">
 			<tr>
-				<td><label>작성자 : <input type="text" name="name">
+				<td><label>작성자 : 
+					<c:if test="${empty sessionScope.sesion_id}">
+						<input type="text" name="name">
+					</c:if>
+					<c:if test="${not empty sessionScope.sesion_id}">
+						${sessionScope.name}
+						<input type="hidden" name="name" value="${sessionScope.name}">
+					</c:if>
 				</label></td>
 			</tr>
 			<tr>

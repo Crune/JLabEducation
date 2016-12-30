@@ -50,7 +50,15 @@
 					<!-- 댓글 작성 table -->
 					<table>
 						<Tr>
-							<td>아이디<input type="text" id="name" name="name" value=""></td>
+							<td>이름 
+							
+					<c:if test="${empty sessionScope.sesion_id}">
+						<input type="text" name="name">
+					</c:if>
+					<c:if test="${not empty sessionScope.sesion_id}">
+						${sessionScope.name}
+						<input type="hidden" name="name" value="${sessionScope.name}">
+					</c:if></td>
 							<td><textarea id="content" name="content" cols="30" rows="3"></textarea></td>
 							<td>날짜</td>
 							<td><input type="submit" onclick="gasi_board()" value="등록"></td>
