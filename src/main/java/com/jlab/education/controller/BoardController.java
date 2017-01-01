@@ -7,11 +7,13 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.jlab.education.dto.Articles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.jlab.education.dto.ArticleDto;
 import com.jlab.education.dto.ReplyDto;
@@ -30,6 +32,14 @@ public class BoardController {
 		mav.addObject("glist", glist);// 게시물들을 담은 List를 보내기 위해 객체에 담음
 		mav.setViewName("mainpage");// 보여줄 페이지를 지정. tiles를 이용하여 페이지를 뿌림
 		return mav;// 객체를 리턴
+	}
+
+	@RequestMapping(value = "/xml/list", produces = "application/xml")
+	public @ResponseBody Articles gesipanXml(HttpServletRequest request) {
+		List<ArticleDto> glist = GE_SERVICE.gesi_list();// 시작페이지에 게시판을 만들기위해 게시물들을 DB에서 조회
+        Articles atcls = new Articles();
+        atcls.setArticles(glist);
+        return atcls;// 객체를 리턴
 	}
 
 	// 게시판 글쓰기
