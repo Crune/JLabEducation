@@ -1,10 +1,13 @@
 package com.jlab.education.controller;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.jlab.education.dto.Articles;
@@ -18,6 +21,12 @@ import org.springframework.web.servlet.ModelAndView;
 import com.jlab.education.dto.ArticleDto;
 import com.jlab.education.dto.ReplyDto;
 import com.jlab.education.service.BoardService;
+import com.tobesoft.platform.PlatformRequest;
+import com.tobesoft.platform.PlatformResponse;
+import com.tobesoft.platform.data.Dataset;
+import com.tobesoft.platform.data.DatasetList;
+import com.tobesoft.platform.data.VariableList;
+
 
 @Controller //스프링 어노테이션의 DI방식  -- 컨트롤러를 의미한다 : gesipan_controller를 의미한다.
 public class BoardController {
