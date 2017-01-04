@@ -19,5 +19,6 @@
 	<!-- 쿼리문이 있는 xml파일 경로 -->
 	<sqlMap resource="query/account_query.xml" />
 	<sqlMap resource="query/board_query.xml" />
+	<sqlMap resource="query/mi_query.xml" />
 	
 </sqlMapConfig>

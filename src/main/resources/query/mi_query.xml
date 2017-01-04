@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="mi">
+	<typeAlias alias="sdto" type="com.jlab.education.dto.SawonDto" />
+	<typeAlias alias="pdto" type="com.jlab.education.dto.PropDto" />
+
+	<!-- 회원 목록 조회 -->
+	<select id="sawonFindList" parameterClass="String" resultClass="sdto">
+		select * from base_sawon
+		where name like '%'||#name:VARCHAR:NO_ENTRY#||'%'
+	</select>
+
+	<!-- 프로퍼티 조회 -->
+	<select id="deptList" resultClass="pdto">
+		select * from base_dept
+	</select>
+	<select id="jikgupList" resultClass="pdto">
+		select * from base_jikgup
+	</select>
+
+	<!-- 삽입 -->
+	<insert id="insert" parameterClass="sdto">
+		insert into base_sawon(name, sabun, dept, jikgup, sex, ipsa_date, marry, email, smemo)
+		values(
+			#name#,
+			#sabun:VARCHAR:NO_ENTRY#,
+			#dept:VARCHAR:NO_ENTRY#,
+			#jikgup:VARCHAR:NO_ENTRY#,
+			#sex:VARCHAR:NO_ENTRY#,
+			#ipsa_date:VARCHAR:NO_ENTRY#,
+			#marry:VARCHAR:NO_ENTRY#,
+			#email:VARCHAR:NO_ENTRY#,
+			#smemo:VARCHAR:NO_ENTRY#
+		)
+	</insert>
+
+	<!-- 수정 -->
+	<update id="update" parameterClass="sdto">
+		update base_sawon set
+			sabun=#sabun:VARCHAR:NO_ENTRY#,
+			dept=#dept:VARCHAR:NO_ENTRY#,
+			jikgup=#jikgup:VARCHAR:NO_ENTRY#,
+			sex=#sex:VARCHAR:NO_ENTRY#,
+			ipsa_date=#ipsa_date:VARCHAR:NO_ENTRY#,
+			marry=#marry:VARCHAR:NO_ENTRY#,
+			email=#email:VARCHAR:NO_ENTRY#,
+			smemo=#smemo:VARCHAR:NO_ENTRY#
+		where name = #name#
+	</update>
+
+	<!-- 삭제 -->
+	<delete id="delete" parameterClass="sdto">
+		delete from base_sawon
+		where name = #name#
+	</delete>
+
+</sqlMap>

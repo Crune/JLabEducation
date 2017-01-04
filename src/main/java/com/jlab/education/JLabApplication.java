@@ -8,6 +8,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.annotation.ComponentScan;
 
 @ComponentScan(basePackages = {
+	"com.jlab.education.mi",
 	"com.jlab.education.controller",
 	"com.jlab.education.dao",
 	"com.jlab.education.dto",

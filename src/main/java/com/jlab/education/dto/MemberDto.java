@@ -52,6 +52,12 @@ public class MemberDto {
 	public void setRegdate(String regdate) {
 		this.regdate = regdate;
 	}
+
+	@Override
+	public String toString() {
+		return "MemberDto [member_id=" + member_id + ", member_pw=" + member_pw + ", member_name=" + member_name
+				+ ", regdate=" + regdate + "]";
+	}
 	
 	
 	
